@@ -9,23 +9,24 @@ Time complexity: O(n log(n)) faster than Quick Sort.
 In this example, I will do min heap sort. 
 
 '''
-def heapify(vals, heap_size, root_index):
-    largest = root_index # assign root to be the largest value
-    left_child = (2 * root_index) + 1 
-    right_child = (2 * root_index) + 2
+def heapify(vals, size, root):
+    largest = root # assign root to be the largest value
+    left_child = (2 * root) + 1 
+    right_child = (2 * root) + 2
+    
     # check numbers on the left side (child)
-    if left_child < heap_size and vals[left_child] > vals[largest]:
+    if left_child < size and vals[left_child] > vals[largest]:
         largest = left_child
 
     # check numbers on the left side (child)
-    if right_child < heap_size and vals[right_child] > vals[largest]:
+    if right_child < size and vals[right_child] > vals[largest]:
         largest = right_child
 
     # if needed, change the root with the largest number
-    if largest != root_index:
-        vals[root_index], vals[largest] = vals[largest], vals[root_index]
+    if largest != root:
+        vals[root], vals[largest] = vals[largest], vals[root]
         # Heapify the root
-        heapify(vals, heap_size, largest)
+        heapify(vals, size, largest)
 
 # main function to sort array
 def heap_sort(vals):
