@@ -9,7 +9,7 @@ Date          Name              Version
 11/1/2019     Alice Balayan     JS
 */
 
-const arr = [87, 56, 99, 18, 20, 31]; //declare array with values OR ask for user input and pass the values to the function 
+const arr = [87, 56, 99, 18, 20, 31]; //declare array with values 
 function bubbleSort (arr) {
   let swapVars; //use let instead of var to avoid undefined error in js
      do {
