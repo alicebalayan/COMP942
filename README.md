@@ -7,7 +7,7 @@ If you never used GitHub or git before, upload your first project via UI (browse
 
 Go to "Create new file" or "Upload files" and for the name type the following (the way it is in italics):
 
-*/firstLastName *
+*/firstLastName*
 
 then, 
 
