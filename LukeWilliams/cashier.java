@@ -1,8 +1,6 @@
 package lazy;
 import java.util.*; 
 import java.io.*;
-import java.math.*;
-import java.text.DecimalFormat;
 
 class algorithms 
 {
@@ -69,10 +67,8 @@ public class Main {
 		System.out.print("Enter dollar amount\n");
 		double input = keyboard.nextDouble();
 		demo.cashier(input);		
-		keyboard.close();		
-						
+		keyboard.close();								
 	}
-
 }
 
 //lw
