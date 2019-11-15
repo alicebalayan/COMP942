@@ -4,36 +4,32 @@ import java.io.*;
 
 class algorithms 
 {
-	//stores the running total so each iteration of the coin operation
-	//function can read it
+	//value passed between iterations of coin operation function
 	public double globalTotal;
-	//function that recieves a coin value: penny, quarter, etc, total change value,
-	//and returns number of coins to give that change amount
+	
+	/* 
+	 *Tally is a test value for total. A coin value is subtracted from the tally
+	 * and compares it to 0. If that operation causes tally to be >= 0, it 
+	 * does the operation on total. The loop then continues until
+	 * it reaches a subtraction of the coin value where tally is negative.
+	 * When that happens it will stop the loop and hold the total where it was
+	 * in the prior operation. Each time a valid operation is done
+	 * on total we add 1 to the coin amount counter. 
+	 */
+	
 	public int coinOperation (double coinValue, double total)
-	{
-		
+	{		
 		double tally = total;
 		int coinAmount = 0;
-		/* The loop condition checks the current state of tally, which is a checker to make 
-		 * sure we don't use too many coins. It subtracts any coin value from the tally
-		 * and compares it to 0. If it is greater than or equal to 0, it 
-		 * continues actually does the operation on tally. Tally tells us 
-		 * if we should subtract more from the total ahead of time. 
-		 * The loop then continues until
-		 * we reach a subtraction of the coin value where tally is negative.
-		 * When that happens it will stop the loop and hold the total where it was
-		 * in the prior operation. Each time a valid operation is done
-		 * on total we add 1 to the coin amount counter.
-		 * 
-		 */
+		
 		while (tally - coinValue >= 0) 
 		{
 			tally = tally - coinValue;
+			tally = Math.round(tally * 100.0)/100.0;
 			if (tally >= 0)
 			{
-				total = total - coinValue;
+				total = tally;
 				coinAmount = coinAmount + 1;
-				System.out.println(total);
 			}
 		}
 		globalTotal = total;
@@ -41,14 +37,15 @@ class algorithms
 	}
 	
 	public void cashier (double total)
-	{
-		
+	{		
+		/* Calling coinOperation method for each denomination. This must be done in order
+		 * from greatest to least
+		*/
 		int qNum = coinOperation(.25, total);
 		int dNum = coinOperation(.1, globalTotal);
 		int nNum = coinOperation(.05, globalTotal);
 		int pNum = coinOperation(.01, globalTotal);
-										
-		//System.out.println("Total is now: " + total);
+
 		System.out.println("Number of quarters used: " + qNum);			
 		System.out.println("Number of dimes used: " + dNum);
 		System.out.println("Number of nickels used: " + nNum);			
@@ -56,19 +53,16 @@ class algorithms
 	}	
 }
 
-
-
-public class Main {
-	
-	public static void main(String[] args) 
+public class Main 
+{	
+	public static void main(String[] args) throws IOException
 	{	
 		Scanner keyboard = new Scanner(System.in);
 		algorithms demo = new algorithms();		
-		System.out.print("Enter dollar amount\n");
+		System.out.println("This is a demonstration of the Cashier Algorithm \nEnter a dollar/cents amount");
+		System.out.print("$ ");
 		double input = keyboard.nextDouble();
 		demo.cashier(input);		
 		keyboard.close();								
 	}
 }
-
-//lw
