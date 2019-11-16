@@ -27,6 +27,7 @@ The following algorithms (with no particular order) have been implemented:
 
 Once you upload your file here, add the algorithm you worked on and your name as above. 
 
+-Algorithm Liner Search and Jump Search Nathaniel Clark
 
 **Table of Contents**
 
