@@ -1,0 +1,54 @@
+Programmer: Richmond Laureta
+
+ Using For.. loop, Write a program to fetch the name, salary and the state for 6 employees. Calculate the federal tax, state tax and the net salary for each employee. Use the following criteria:
+To calculate the federal tax, use the following criteria:
+ 
+If the salary is greater than 100,000 then calculate the federal tax at 20 percent.
+Otherwise calculate the federal tax at 15%.
+To calculate the state Tax, use the following criteria:
+If the employee is from CA, NV, AZ, or WA calculate the state tax at 10%
+Otherwise calculate the state tax at 12%
+Calculate and display the netsalary.
+
+Date: 01/12/2019
+'''
+
+
+for i in range(1,7):        #for loop that asks 6 employees for their name, salary, and state
+    EmployeeName = input("What is employee " + str(i) + "'s name? ")
+    Salary = float(input("What is " + EmployeeName + "'s salary? "))
+    State = input("What state do you reside? Example: 'CA' for california or 'NV' for Nevada. ")
+   
+    if (Salary > 100000): #conditional statement if the salary is over 100000 this statements will execute
+        FederalTax = (Salary * .20) #calculates the federal tax 20 percent
+        
+        if (State.upper() == 'CA' or State.upper() == 'NV' or State.upper() == 'AZ' or State.upper() == 'WA'): #if conditional statement. If the employees are from these states the tax is 10 percent.
+            StateTax = (Salary * .10)
+            NetSalary = (Salary - (FederalTax + StateTax))
+            print("Federal Tax for " + EmployeeName + ": $" + str(("%.2f" % FederalTax)))
+            print("State Tax for " + EmployeeName + ": $" + str(("%.2f" % StateTax)))
+            print("Net Salary for " + EmployeeName + ": $" + str(("%.2f" % NetSalary)))
+        
+        else:   #if the employees are not from the states mentioned their tax is 12 percent
+            StateTax = (Salary * .12)
+            NetSalary = (Salary - (FederalTax + StateTax))
+            print("Federal Tax for " + EmployeeName + ": $" + str(("%.2f" % FederalTax)))
+            print("State Tax for " + EmployeeName + ": $" + str(("%.2f" % StateTax)))
+            print("Net Salary for " + EmployeeName + ": $" + str(("%.2f" % NetSalary)))
+    
+    else: #if the salary is below 100000 this statements will execute same as above
+        FederalTax = (Salary * .15)
+        
+        if (State.upper() == 'CA' or State.upper() == 'NV' or State.upper() == 'AZ' or State.upper() == 'WA'):
+            StateTax = (Salary * .10)
+            NetSalary = (Salary - (FederalTax + StateTax))
+            print("Federal Tax for " + EmployeeName + ": $" + str(("%.2f" % FederalTax)))
+            print("State Tax for " + EmployeeName + ": $" + str(("%.2f" % StateTax)))
+            print("Net Salary for " + EmployeeName + ": $" + str(("%.2f" % NetSalary)))
+        
+        else:
+            StateTax = (Salary * .12)
+            NetSalary = (Salary - (FederalTax + StateTax))
+            print("Federal Tax for " + EmployeeName + ": $" + str(("%.2f" % FederalTax)))
+            print("State Tax for " + EmployeeName + ": $" + str(("%.2f" % StateTax)))
+            print("Net Salary for " + EmployeeName + ": $" + str(("%.2f" % NetSalary)))
