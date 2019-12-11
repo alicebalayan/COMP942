@@ -1,0 +1,57 @@
+//C++ Program:
+#include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
+
+void greeChangeMaker(const int[], int[], const int, int);
+int main()
+{
+const int NUM_COINS = 4;
+int coins[NUM_COINS] = {25,10,5,1};
+int count[NUM_COINS] = {0,0,0,0};
+const char CENT_SYM = 155;
+int n;
+
+cout << "This Program implements the greedy change-making algorithm." << endl;
+cout << "It will calculate the fewest number of quarters, dimes, nickets, " << endl;
+cout << "and pennies necessary to make change for an inputted amount." << endl;
+cout << "Enter the amount: ";
+cin >> n;
+
+greeChangeMaker(coins,count,NUM_COINS,n);
+
+return 0;
+}
+
+void greeChangeMaker(const int coins[], int count[], const int NUM_COINS, int n)
+{
+while(n > coins[0])
+{
+count[0]++;
+n = n - coins[0];
+}
+
+while(n > coins[1])
+{
+count[1]++;
+n = n - coins[1];
+}
+
+while(n > coins[2])
+{
+count[2]++;
+n = n - coins[2];
+}
+
+count[3] = n;
+
+
+cout << "The fewest number of coins to make change of your inputted value is: \n";
+cout << "\t\t\tNUMBER\t\tAMOUNT\n";
+cout << "\t\t\t" << count[0] << "\t\t" << coins[0] << "$\n";
+cout << "\t\t\t" << count[1] << "\t\t" << coins[1] <<"$\n";
+cout << "\t\t\t" << count[2] << "\t\t " << coins[2] <<"$\n";
+cout << "\t\t\t" << count[3] << "\t\t " << coins[3] <<"$\n";
+
+}
