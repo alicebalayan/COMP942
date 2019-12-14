@@ -1,0 +1,341 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+class Department
+{
+private:
+	int departmentID;
+	string departmentName,
+		departmentHeadName;
+	double totalSalary = 0.0;
+public:
+	Department()
+	{
+		departmentID = 0;
+		departmentName = " ";
+		departmentHeadName = " ";
+	}
+	Department(int ID, string n, string h)
+	{
+		departmentID = ID;
+		departmentName = n;
+		departmentHeadName = h;
+	}
+	int getDepartmentID()
+	{
+		return departmentID;
+	}
+	string getDepartmentName()
+	{
+		return departmentName;
+	}
+	string getDepartmentHeadName()
+	{
+		return departmentHeadName;
+	}
+	void setTotalSalary(double s)
+	{
+		totalSalary += s;
+	}
+	double getTotalSalary()
+	{
+		return totalSalary;
+	}
+};
+
+class Employee
+{
+private:
+	int employeeID,
+		employeeAge,
+		employeeDepartmentID;
+	double employeeSalary;
+	string employeeName;
+public:
+	Employee()
+	{
+		employeeID = 0;
+		employeeName = " ";
+		employeeSalary = 0.0;
+		employeeAge = 0;
+		employeeDepartmentID = 0;
+	}
+	Employee(int ID, string n, double s, int a, int depID)
+	{
+		employeeID = ID;
+		employeeName = n;
+		employeeSalary = s;
+		employeeAge = a;
+		employeeDepartmentID = depID;
+	}
+	int getEmployeeID()
+	{
+		return employeeID;
+	}
+	string getEmployeeName()
+	{
+		return employeeName;
+	}
+	double getEmployeeSalary()
+	{
+		return employeeSalary;
+	}
+	int getEmployeeAge()
+	{
+		return employeeAge;
+	}
+	int getEmployeeDepartmentID()
+	{
+		return employeeDepartmentID;
+	}
+};
+
+int main()
+{
+	const int NUM_EMPLOYEES = 5;
+	const int NUM_DEPARTMENTS = 3;
+
+	Employee employee[NUM_EMPLOYEES];
+	Department department[NUM_DEPARTMENTS];
+
+	int choice,
+		dcounter = 0,
+		ecounter = 0;
+
+	do
+	{
+		cout << "1. Create Department" << endl << "2. Create Employee";
+		cout << endl << "3. Write Out Data File" << endl;
+		cout << "4. Read In Data File" << endl << "5. Display Salary Report";
+		cout << endl << "6. -- Quit --" << endl;
+		cout << "Please make a selection : ";
+		cin >> choice;
+
+		while ((choice < 1) || (choice > 6))
+		{
+			cout << "Please enter a valid choice (1 - 6): ";
+			cin >> choice;
+		}
+
+		if (choice != 6)
+		{
+			if (choice == 1)
+			{
+				const int NUM_IDS = 3;
+				int id,
+					depVal;
+				string depName,
+					HoD;
+				static int count = 0,
+					uniqueID[NUM_IDS];
+
+				if (count >= NUM_DEPARTMENTS)
+				{
+					cout << endl << "The array is full, you can not add any more Departments." << endl;
+					continue;
+				}
+				else
+				{
+					cout << "PLease Enter Department Details:" << endl;
+					cout << "Department ID : ";
+					cin >> id;
+
+					for (depVal = 0; depVal < NUM_DEPARTMENTS; depVal++)
+					{
+						if (uniqueID[depVal] == id)
+						{
+							cout << "Value must be unique!" << endl;
+							break;
+						}
+						else if (uniqueID[depVal] != id && depVal == (NUM_DEPARTMENTS - 1))
+						{
+							uniqueID[count] = id;
+
+							cout << "Department Name : ";
+							cin >> depName;
+							cout << "Head of Department : ";
+							cin >> HoD;
+
+							department[count] = Department(id, depName, HoD);
+							cout << department[count].getDepartmentID() << " " << department[count].getDepartmentName() << " " << department[count].getDepartmentHeadName() << endl;
+
+							++count;
+							++dcounter;
+							break;
+						}
+						else if (uniqueID[depVal] != id && depVal < NUM_DEPARTMENTS)
+							continue;
+					}
+				}
+			}
+			else if (choice == 2)
+			{
+				const int NUM_IDS = 5;
+				int id,
+					age,
+					depID,
+					empVal,
+					i = 0;
+				double salary;
+				string name;
+				static int count = 0,
+					uniqueID[NUM_IDS];
+
+				if (count >= NUM_EMPLOYEES)
+				{
+					cout << "The array is full, you can not add any more Employees." << endl;
+					continue;
+				}
+				else
+				{
+					cout << "Please Enter Employee Details:" << endl;
+					cout << "Employee ID : ";
+					cin >> id;
+
+					for (empVal = 0; empVal < NUM_EMPLOYEES; empVal++)
+					{
+						if (uniqueID[empVal] == id)
+						{
+							cout << "Value must be unique!" << endl;
+							break;
+						}
+						else if (uniqueID[empVal] != id && empVal == (NUM_EMPLOYEES - 1))
+						{
+							uniqueID[count] = id;
+
+							cout << "Employee Name :";
+							cin >> name;
+							cout << "Salary: $";
+							cin >> salary;
+							cout << "Age : ";
+							cin >> age;
+							cout << "Department ID : ";
+							cin >> depID;
+
+							for (i; i < NUM_DEPARTMENTS; i++)
+							{
+								if (depID != department[i].getDepartmentID() && i == (NUM_DEPARTMENTS - 1))
+								{
+									cout << endl << "Please enter a valid department ID: " << endl;
+									cin >> depID;
+								}
+								else if (depID != department[i].getDepartmentID() && i < NUM_DEPARTMENTS)
+									continue;
+								else if (depID == department[i].getDepartmentID())
+									break;
+							}
+
+							employee[count] = Employee(id, name, salary, age, depID);
+							department[(depID - 1)].setTotalSalary(salary);
+							cout << employee[count].getEmployeeID() << " " << employee[count].getEmployeeName() << " " << employee[count].getEmployeeSalary() << " ";
+							cout << employee[count].getEmployeeAge() << " " << employee[count].getEmployeeDepartmentID() << endl;
+
+							++count;
+							++ecounter;
+							break;
+						}
+						else if (uniqueID[empVal] != id && empVal < NUM_EMPLOYEES)
+							continue;
+					}
+				}
+			}
+			else if (choice == 3)
+			{
+				int dcount = 0,
+					ecount = 0;
+				ofstream outputFile;
+
+				outputFile.open("depArray.txt");
+
+				while (dcount < dcounter)
+				{
+					outputFile << department[dcount].getDepartmentID() << endl;
+					outputFile << department[dcount].getDepartmentName() << endl;
+					outputFile << department[dcount].getDepartmentHeadName() << endl;
+					outputFile << department[dcount].getTotalSalary() << endl;
+
+					dcount++;
+				}
+
+				outputFile.close();
+				outputFile.open("empArray.txt");
+
+				while (ecount < ecounter)
+				{
+					outputFile << employee[ecount].getEmployeeID() << endl;
+					outputFile << employee[ecount].getEmployeeName() << endl;
+					outputFile << employee[ecount].getEmployeeSalary() << endl;
+					outputFile << employee[ecount].getEmployeeAge() << endl;
+					outputFile << employee[ecount].getEmployeeDepartmentID() << endl;
+
+					ecount++;
+				}
+
+				outputFile.close();
+			}
+
+			else if (choice == 4)
+			{
+				int dcount = 0,
+					ecount = 0,
+					ID;
+				string N,
+					HN;
+				double TS;
+				ifstream inputFile;
+
+				inputFile.open("depArray.txt");
+
+				while (dcount < dcounter)
+				{
+					inputFile >> ID;
+					inputFile >> N;
+					inputFile >> HN;
+					inputFile >> TS;
+					department[dcount] = Department(ID, N, HN);
+					department[dcount].setTotalSalary(TS);
+					dcount++;
+				}
+
+				inputFile.close();
+
+				double S;
+				int A,
+					DID;
+
+				inputFile.open("empArray.txt");
+
+				while (ecount < ecounter)
+				{
+					inputFile >> ID;
+					inputFile >> N;
+					inputFile >> S;
+					inputFile >> A;
+					inputFile >> DID;
+
+					employee[ecount] = Employee(ID, N, S, A, DID);
+					ecount++;
+				}
+
+				inputFile.close();
+			}
+
+			else if (choice == 5)
+			{
+				cout << "Salary Report By Department" << endl << endl;
+
+				for (int count = 0; count < dcounter; count++)
+				{
+					cout << "Dept         : " << department[count].getDepartmentName() << endl;
+					cout << "Total Salary : $" << department[count].getTotalSalary() << endl << endl;
+				}
+			}
+		}
+	} while (choice != 6);
+
+	cout << "Thank you, goodbye.";
+
+	return 0;
